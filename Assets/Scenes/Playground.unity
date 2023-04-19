@@ -345,7 +345,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478823985}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1976,6 +1976,12 @@ PrefabInstance:
       propertyPath: aimCamera
       value: 
       objectReference: {fileID: 507714756}
+    - target: {fileID: 3801729722799432486, guid: 8071117ad06cdb141919f775170b520f,
+        type: 3}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 4252801894676002, guid: 8fea08f7cd39cd243840dcfe935c84bc,
+        type: 3}
     - target: {fileID: 3801729722799432486, guid: 8071117ad06cdb141919f775170b520f,
         type: 3}
       propertyPath: debugAimSphere

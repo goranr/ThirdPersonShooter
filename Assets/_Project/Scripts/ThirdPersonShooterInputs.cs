@@ -11,6 +11,7 @@ public class ThirdPersonShooterInputs : MonoBehaviour
 	public bool jump;
 	public bool sprint;
 	public bool aim;
+	public bool shoot;
 
 	[Header("Movement Settings")]
 	public bool analogMovement;
@@ -47,6 +48,11 @@ public class ThirdPersonShooterInputs : MonoBehaviour
 	{
 		AimInput(value.isPressed);
 	}
+
+	public void OnShoot(InputValue value)
+	{
+		ShootInput(value.isPressed);
+	}
 #endif
 
 
@@ -75,6 +81,12 @@ public class ThirdPersonShooterInputs : MonoBehaviour
 	{
 		//Debug.Log("Aim " + newAimState);
 		aim = newAimState;
+	}
+
+	public void ShootInput(bool newShootState)
+	{
+		//Debug.Log("Shoot " + newShootState);
+		shoot = newShootState;
 	}
 	private void OnApplicationFocus(bool hasFocus)
 	{

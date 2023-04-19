@@ -17,6 +17,8 @@ public class ThirdPersonShooterController : MonoBehaviour
 	public Transform debugAimSphere;
 	public LayerMask aimColliderMask;
 
+	public Transform explosion;
+
 	private void Awake()
 	{
 		thirdPersonInputs = GetComponent<ThirdPersonShooterInputs>();
@@ -27,12 +29,16 @@ public class ThirdPersonShooterController : MonoBehaviour
 	{
 		Vector3 mouseWorldPosition = Vector3.zero;
 		Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+		Transform hitTransform = null;
+		
 		Ray ray = Camera.main.ScreenPointToRay(screenCenter);
 
 		if (Physics.Raycast(ray, out RaycastHit hit, 999f, aimColliderMask))
 		{
 			debugAimSphere.position = hit.point;
 			mouseWorldPosition = hit.point;
+
+			hitTransform = hit.transform;
 		}
 
 
@@ -54,6 +60,13 @@ public class ThirdPersonShooterController : MonoBehaviour
 			thirdPersonController.SetSensitivity(normalSensitivity);
 		}
 
-		
+		if (thirdPersonInputs.shoot)
+		{
+			if(hitTransform != null)
+			{
+				Instantiate(explosion, debugAimSphere.position, Quaternion.identity);
+			}
+			thirdPersonInputs.shoot = false;
+		}
 	}
 }
