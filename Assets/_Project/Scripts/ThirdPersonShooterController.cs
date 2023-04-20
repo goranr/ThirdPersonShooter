@@ -89,7 +89,7 @@ public class ThirdPersonShooterController : MonoBehaviour
 			}*/
 			//Codigo para disparar con Prefabs
 			Vector3 aimDirection = (mouseWorldPosition - bulletSpawnPoint.position).normalized;
-			Transform newBullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+			Transform newBullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection, Vector3.up));
 			newBullet.LookAt(mouseWorldPosition);
 
 			thirdPersonInputs.shoot = false;

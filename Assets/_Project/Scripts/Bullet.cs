@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = Vector3.forward * speed;
+        rb.velocity = transform.forward * speed;
     }
 
 	private void OnTriggerEnter(Collider other)
