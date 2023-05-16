@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using StarterAssets;
+using UnityEngine.Animations.Rigging;
 
 public class ThirdPersonShooterController : MonoBehaviour
 {
@@ -18,15 +19,22 @@ public class ThirdPersonShooterController : MonoBehaviour
 	public Transform debugAimSphere;
 	public LayerMask aimColliderMask;
 
-	public Transform explosion;
+	public Transform weapon;
 	public Transform bulletPrefab;
 	public Transform bulletSpawnPoint;
 
+	[SerializeField]public Rig weaponRig;
+	[SerializeField]Transform followPointObject;
+
+	[SerializeField]public Vector3 weaponPointingPosition=new Vector3();
+	private Vector3 startWeaponPosition=new Vector3();
 	private void Awake()
 	{
 		thirdPersonInputs = GetComponent<ThirdPersonShooterInputs>();
 		thirdPersonController = GetComponent<ThirdPersonController>();
 		anim = GetComponent<Animator>();
+		startWeaponPosition=weapon.position;
+
 	}
 
 	private void Update()
@@ -47,11 +55,14 @@ public class ThirdPersonShooterController : MonoBehaviour
 
 		if (thirdPersonInputs.aim)
 		{
+			weaponRig.weight=0.9f;
 			aimCamera.gameObject.SetActive(true);
 			thirdPersonController.SetSensitivity(aimSensitivity);
-
+			
 			Vector3 worldAimTarget = mouseWorldPosition;
+			followPointObject.position=worldAimTarget;
 			worldAimTarget.y = transform.position.y;
+			
 			Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
 
 			transform.forward = Vector3.Lerp(transform.forward, aimDirection,
@@ -62,6 +73,8 @@ public class ThirdPersonShooterController : MonoBehaviour
 		}
 		else
 		{
+			weapon.position=startWeaponPosition;
+			weaponRig.weight=0;
 			aimCamera.gameObject.SetActive(false);
 			thirdPersonController.SetSensitivity(normalSensitivity);
 			anim.SetLayerWeight(1, Mathf.Lerp(anim.GetLayerWeight(1),
